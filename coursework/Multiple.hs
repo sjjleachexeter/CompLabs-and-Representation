@@ -1,5 +1,6 @@
 -- ### Question 1.1 Number ### --
 number :: [Int] -> Int -- using Int not Integer as explained in lectures
+-- the recursive method for this function was taken from a workshop
 number xs
   = totalize (reverse xs)
     where
@@ -25,6 +26,8 @@ generator1 =
     
 -- ### is perfect Sqr is a function to help the selector in 1.3 ### --
 isperfSqr :: Int -> Bool
+-- this function checks that the square root is the nearest whole number, which would only
+-- be the case if it was a perfect square
 isperfSqr n = 
     p * q == n
     where
@@ -34,6 +37,7 @@ isperfSqr n =
 
 -- ### Question 1.3 Selector ### --
 selector1 :: (Int,Int,Int,Int,Int,Int) -> Bool
+-- here we check the conditions required
 selector1 (a,b,c,d,e,f) =
     a + b + c + d + e + f == 5 * (a + f)
     && d > e && e > f 
@@ -41,4 +45,12 @@ selector1 (a,b,c,d,e,f) =
     
 -- ### Main ### ---
 main :: IO()
-main = print (head (filter selector1 generator1))
+-- Here did use A.I. to give me a way to print 2 outputs (using do)
+-- I felt it was prudent as I wasn't certain whether the output from the given main
+-- was the wanted output, or the output that gave 661 was. So I gave both.
+main = do
+    print (head (filter selector1 generator1))
+    print (round (sqrt (fromIntegral (head [ number [a,b,c,d,e,f]
+                                        | (a,b,c,d,e,f) <- generator1,
+                                        selector1 (a,b,c,d,e,f)
+                                        ]))))
