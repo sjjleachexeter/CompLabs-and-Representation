@@ -45,9 +45,9 @@ selector1 (a,b,c,d,e,f) =
     
 -- ### Main ### ---
 main :: IO()
--- Here did use A.I. to give me a way to print 2 outputs (using do)
--- I felt it was prudent as I wasn't certain whether the output from the given main
--- was the wanted output, or the output that gave 661 was. So I gave both.
+-- Here did use A.I. to explain the do functionality to me, but I wrote the actual functions
+-- myself. As stated in the instructions, the first print function does mean it is possible
+-- to calculate the solution as it is the square. The second print function square roots it.
 main = do
     print (head (filter selector1 generator1))
     print (round (sqrt (fromIntegral (head [ number [a,b,c,d,e,f]
