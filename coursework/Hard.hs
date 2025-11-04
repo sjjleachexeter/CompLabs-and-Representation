@@ -10,11 +10,14 @@ generator3 :: [(Int,[Int],[Int],[Int],Int)]
 -- this generator needs to take a number of things into account:
 -- 1. Physical adjacency (not only are they not repeated, a regular 6 sided die has the sides in order)
 -- 2. Opposites adding to 7
+-- 3. Specific optionsof numbers not working togethe (physical constraints of the dice)
 generator3 = [(a,[b1,b2,b3],[c1,c2,c3],[d1,d2,d3],e)
             |
                 -- First die
                 a <- [1..6], b1 <- [1..6], c1 <- [1..6], d1 <- [1..6],
                 a /= b1, a /= c1, a /= d1, b1 /= c1, b1 /= d1, c1 /= d1, 7-d1 /= a,
+                -- This is the deciding constraint to get the correct output, and it took
+                -- FOREVER without realising the Erratum file was a thing
                 (not (holds [b1==4,c1==3,d1==6])) || a == 2,
                 (not (holds [b1==3,c1==4,d1==6])) || a == 5,
                 -- Second die
@@ -43,6 +46,7 @@ number xs
       = x + 10 * totalize xs
 
 -- ### Prime checker function ###--
+-- I used the prime function from the workshop
 prime :: Int -> Bool
 prime n
   = factors n == [1,n]
